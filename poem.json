@@ -1,45 +1,4 @@
-{
-  "poets": [
-    {
-      "poet_name": "Turgut Uyar",
-      "poet_id": "0"
-    },
-    {
-      "poet_name": "Cemal Süreya",
-      "poet_id": "1"
-    },
-    {
-      "poet_name": "Sabahattin Ali",
-      "poet_id": "2"
-    },
-    {
-      "poet_name": "Nazım Hikmet",
-      "poet_id": "3"
-    },
-    {
-      "poet_name": "Orhan Veli Kanık",
-      "poet_id": "4"
-    },
-    {
-      "poet_name": "Yahya Kemal Beyatlı",
-      "poet_id": "5"
-    },
-    {
-      "poet_name": "Ahmet Arif",
-      "poet_id": "6"
-    },
-    {
-      "poet_name": "Özdemir Asaf",
-      "poet_id": "7"
-    },
-    {
-      "poet_name": "Behçet Necatigil",
-      "poet_id": "8"
-    }
-
-  ],
-
-  "poems": [
+ [
     {
       "poem_title": "Göğe bakma durağı",
       "poem_text": "İkimiz birden sevinebiliriz göğe bakalım\nŞu kaçamak ışıklardan şu şeker kamışlarından\nBebe dişlerinden güneşlerden yaban otlarından\nDurmadan harcadığım şu gözlerimi al kurtar\nŞu aranıp duran korkak ellerimi tut\nBu evleri atla bu evleri de bunları da\nGöğe bakalım\n\nFalanca durağa şimdi geliriz göğe bakalım\nİnecek var deriz otobüs durur ineriz\nBu karanlık böyle iyi afferin Tanrıya\nHerkes uyusun iyi oluyor hoşlanıyorum\nHırsızlar polisler açlar toklar uyusun\nHerkes uyusun bir seni uyutmam bir de ben uyumam\nHerkes yokken biz oluruz biz uyumayalım\nNasıl olsa sarhoşuz nasıl olsa öpüşürüz sokaklarda\nBeni bırak göğe bakalım\n\nSenin bu ellerinde ne var bilmiyorum göğe bakalım\nTuttukça güçleniyorum kalabalık oluyorum\nBu senin eski zaman gözlerin yalnız gibi ağaçlar gibi\nSularım ısınsın diye bakıyorum ısınıyor\nSeni aldım bu sunturlu yere getirdim\nSayısız penceren vardı bir bir kapattım\nBana dönesin diye bir bir kapattım\nŞimdi otobüs gelir biner gideriz\nDönmiyeceğimiz bir yer beğen başka türlüsü güç\nBir ellerin bir ellerim yeter belliyelim yetsin\nSeni aldım bana ayırdım durma kendini hatırlat\nDurma kendini hatırlat.",
@@ -149,4 +108,3 @@
       "poet_id": "8"
     }
   ]
-}
