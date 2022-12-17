@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/postFragment">
+
+    <fragment
+        android:id="@+id/poemFragment"
+        android:name="com.stturan.poemapplication.view.PoemFragment"
+        android:label="fragment_poem"
+        tools:layout="@layout/fragment_poem" >
+        <action
+            android:id="@+id/action_poemFragment_to_poetFragment2"
+            app:destination="@id/poetFragment" />
+        <action
+            android:id="@+id/action_poemFragment_to_postFragment2"
+            app:destination="@id/postFragment" />
+        <argument
+            android:name="poem_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="poem_title"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="poem_text"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/poetFragment"
+        android:name="com.stturan.poemapplication.view.PoetFragment"
+        android:label="fragment_poet"
+        tools:layout="@layout/fragment_poet" >
+        <action
+            android:id="@+id/action_poetFragment_to_poemFragment"
+            app:destination="@id/poemFragment" />
+        <action
+            android:id="@+id/action_poetFragment_to_postFragment2"
+            app:destination="@id/postFragment" />
+        <argument
+            android:name="poet_id"
+            app:argType="string"
+            android:defaultValue="-1" />
+        <argument android:name="poet_name"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.stturan.poemapplication.view.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" >
+        <action
+            android:id="@+id/action_postFragment_to_poetFragment2"
+            app:destination="@id/poetFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_poemFragment2"
+            app:destination="@id/poemFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_poetsFragment"
+            app:destination="@id/poetsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/poetsFragment"
+        android:name="com.stturan.poemapplication.view.PoetsFragment"
+        android:label="fragment_poets"
+        tools:layout="@layout/fragment_poets" />
+</navigation>
