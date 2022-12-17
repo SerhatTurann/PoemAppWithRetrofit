@@ -6,13 +6,15 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/recycler_row_poet_imageView"
-        android:layout_width="150dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        app:strokeColor="#9FA8DA"
+        android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:layout_weight="2"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:strokeWidth="3dp" />
 
     <TextView
         android:id="@+id/recycler_row_poet_poet_name"

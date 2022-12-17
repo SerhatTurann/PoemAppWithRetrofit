@@ -1,4 +1,4 @@
 package com.stturan.poemapplication.model
 
-data class Poet(val poet_name:String,val poet_id:String) {
+data class Poet(val poet_name:String,val poet_id:String,val img_url:String) {
 }

@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.stturan.poemapplication.R
+import com.stturan.poemapplication.tool.CreatePlaceHolder
+import com.stturan.poemapplication.tool.downloadImage
 import com.stturan.poemapplication.viewmodel.PoemViewModel
 import kotlinx.android.synthetic.main.fragment_poem.*
 
@@ -51,18 +53,20 @@ class PoemFragment : Fragment() {
     }
 
     fun observeLiveData(){
-        viewModel.poem.observe(this, Observer {
+        viewModel.poem.observe(viewLifecycleOwner, Observer {
             it?.let {
                 poem_title.text = it.poem_title
                 poem_text.text = it.poem_text
                 poet_name.text = it.poet.poet_name
+
+                poem_imageView.downloadImage(it.poet.img_url, CreatePlaceHolder(this.requireContext()))
 
                 _poet_id = it.poet.poet_id
                 _poet_name = it.poet.poet_name
             }
         })
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if(it){
                     poem_progressBar.visibility = View.GONE
@@ -73,7 +77,7 @@ class PoemFragment : Fragment() {
             }
         })
 
-        viewModel.progressBar.observe(this, Observer {
+        viewModel.progressBar.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it){
                     poem_errorText.visibility = View.GONE

@@ -39,19 +39,29 @@ class PostFragment : Fragment() {
         post_recyclerView.layoutManager = LinearLayoutManager(context)
         post_recyclerView.adapter = adapter
 
+        swipeRefreshLayout.setOnRefreshListener {
+            post_progressBar.visibility = View.VISIBLE
+            post_errorText.visibility = View.GONE
+            post_recyclerView.visibility = View.GONE
+
+            viewModel.refreshData()
+
+            swipeRefreshLayout.isRefreshing = false
+        }
+
         observeLiveData()
 
 
     }
 
     fun observeLiveData(){
-        viewModel.poems.observe(this, Observer {
+        viewModel.poems.observe(viewLifecycleOwner, Observer {
             it?.let {
                 post_recyclerView.visibility = View.VISIBLE
                 adapter.refreshPoemList(it)
             }
         })
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if(it){
                     post_recyclerView.visibility = View.GONE
@@ -63,7 +73,7 @@ class PostFragment : Fragment() {
             }
         })
 
-        viewModel.progressBar.observe(this, Observer {
+        viewModel.progressBar.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it){
                     post_recyclerView.visibility = View.GONE

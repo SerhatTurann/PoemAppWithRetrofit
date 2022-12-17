@@ -64,11 +64,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="150dp">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/poem_imageView"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="20dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:strokeColor="#9FA8DA"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:strokeWidth="3dp"
+                    android:layout_marginLeft="20dp"/>
 
                 <TextView
                     android:id="@+id/poet_name"

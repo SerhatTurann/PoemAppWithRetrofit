@@ -77,7 +77,7 @@ class PoemViewModel : ViewModel() {
                 }
             }
         }else{
-            poet = Poet("null","-1")
+            poet = Poet("null","-1","")
         }
 
         return poet!!

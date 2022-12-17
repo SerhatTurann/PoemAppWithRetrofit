@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.stturan.poemapplication.R
 import com.stturan.poemapplication.model.PoemFinal
+import com.stturan.poemapplication.tool.CreatePlaceHolder
+import com.stturan.poemapplication.tool.downloadImage
 import com.stturan.poemapplication.view.PostFragmentDirections
 import kotlinx.android.synthetic.main.recycler_row_poem.view.*
 
@@ -27,9 +29,12 @@ class PoemAdapter(val poemList: ArrayList<PoemFinal>):RecyclerView.Adapter<PoemA
         //holder.itemView.recycler_row_poem_poet_name.text = poemList[position].poet_id.toString()
         //val _poet = getPoet(poemList[position].poet_id!!.toInt())
         holder.itemView.recycler_row_poem_poet_name.text = poemList[position].poet.poet_name
+        holder.itemView.recycler_row_poem_imageview.downloadImage(poemList[position].poet.img_url,
+            CreatePlaceHolder(holder.itemView.context)
+        )
 
         holder.itemView.recycler_row_poem_poet_name.setOnClickListener {
-            val action = PostFragmentDirections.actionPostFragmentToPoetFragment2(poemList[position].poet.poet_id,poemList[position].poet.poet_name)
+            val action = PostFragmentDirections.actionPostFragmentToPoetFragment2(poemList[position].poet.poet_id)
             Navigation.findNavController(it).navigate(action)
         }
         holder.itemView.setOnClickListener {

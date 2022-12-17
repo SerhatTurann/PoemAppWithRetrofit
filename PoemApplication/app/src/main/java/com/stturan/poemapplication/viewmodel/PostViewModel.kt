@@ -59,6 +59,7 @@ class PostViewModel:ViewModel() {
                         final_poemList.add(_final_poem)
                     }
 
+                    final_poemList.shuffle()
                     poems.value = final_poemList
                 },
                     { throwable -> throwable.printStackTrace()})
@@ -77,7 +78,7 @@ class PostViewModel:ViewModel() {
                 }
             }
         }else{
-            poet = Poet("null","-1")
+            poet = Poet("null","-1","")
         }
 
         return poet!!

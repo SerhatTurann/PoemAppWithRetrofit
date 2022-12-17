@@ -28,6 +28,10 @@
             android:name="poem_text"
             app:argType="string"
             android:defaultValue="null" />
+        <argument
+            android:name="poet_id"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
     <fragment
         android:id="@+id/poetFragment"
@@ -44,7 +48,8 @@
             android:name="poet_id"
             app:argType="string"
             android:defaultValue="-1" />
-        <argument android:name="poet_name"
+        <argument
+            android:name="poet_name"
             app:argType="string"
             android:defaultValue="null" />
     </fragment>

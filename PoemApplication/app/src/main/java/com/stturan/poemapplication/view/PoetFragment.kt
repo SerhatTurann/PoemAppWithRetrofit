@@ -18,7 +18,8 @@ class PoetFragment : Fragment() {
 
     private lateinit var viewModel: PoetViewModel
     private val adapter = PoetsPoemAdapter(arrayListOf())
-    private  var _poet :Poet? = null
+    //private  var _poet :Poet? = null
+    var poet_id : String = "-1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +38,14 @@ class PoetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            _poet = Poet(PoetFragmentArgs.fromBundle(it).poetName,PoetFragmentArgs.fromBundle(it).poetId)
+            //_poet = Poet(PoetFragmentArgs.fromBundle(it).poetName,PoetFragmentArgs.fromBundle(it).poetId,"")
+            poet_id = PoetFragmentArgs.fromBundle(it).poetId
             poet_title.text = (PoetFragmentArgs.fromBundle(it).poetName)
 
         }
 
         viewModel = ViewModelProviders.of(this).get(PoetViewModel::class.java)
-        viewModel.refreshData(_poet!!)
+        viewModel.refreshData(poet_id)
 
 
         poet_recyclerView.layoutManager = LinearLayoutManager(context)
@@ -54,15 +56,19 @@ class PoetFragment : Fragment() {
     }
 
     fun observeLiveData(){
-        viewModel.poetsPoems.observe(this, Observer {
+        viewModel.poetsPoems.observe(viewLifecycleOwner, Observer {
             it?.let {
-                poet_title.text = _poet!!.poet_name
                 poet_recyclerView.visibility = View.VISIBLE
                 adapter.refreshPoemList(it)
             }
         })
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.poet.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                poet_title.text = it.poet_name
+            }
+        })
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if(it){
                     poet_recyclerView.visibility = View.GONE
@@ -74,7 +80,7 @@ class PoetFragment : Fragment() {
             }
         })
 
-        viewModel.progressBar.observe(this, Observer {
+        viewModel.progressBar.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it){
                     poet_recyclerView.visibility = View.GONE
