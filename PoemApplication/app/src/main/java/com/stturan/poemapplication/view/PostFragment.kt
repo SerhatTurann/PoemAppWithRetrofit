@@ -44,7 +44,7 @@ class PostFragment : Fragment() {
             post_errorText.visibility = View.GONE
             post_recyclerView.visibility = View.GONE
 
-            viewModel.refreshData()
+            viewModel.refreshSwipeLayout()
 
             swipeRefreshLayout.isRefreshing = false
         }

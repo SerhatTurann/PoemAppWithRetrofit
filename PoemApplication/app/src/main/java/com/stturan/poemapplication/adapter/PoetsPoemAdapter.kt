@@ -10,8 +10,6 @@ import com.stturan.poemapplication.model.PoemFinal
 import com.stturan.poemapplication.tool.CreatePlaceHolder
 import com.stturan.poemapplication.tool.downloadImage
 import com.stturan.poemapplication.view.PoetFragmentDirections
-import com.stturan.poemapplication.view.PostFragmentDirections
-import kotlinx.android.synthetic.main.recycler_row_poem.view.*
 import kotlinx.android.synthetic.main.recycler_row_poets_poem.view.*
 
 class PoetsPoemAdapter (val poemList: ArrayList<PoemFinal>): RecyclerView.Adapter<PoetsPoemAdapter.PoemViewHolder>() {

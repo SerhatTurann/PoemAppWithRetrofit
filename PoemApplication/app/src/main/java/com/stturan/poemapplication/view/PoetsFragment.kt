@@ -43,13 +43,13 @@ class PoetsFragment : Fragment() {
     }
 
     fun observeLiveData(){
-        viewModel.poets.observe(this, Observer {
+        viewModel.poets.observe(viewLifecycleOwner, Observer {
             it?.let {
                 poets_recyclerView.visibility = View.VISIBLE
-                adapter.refreshPoetList(it)
+                adapter.refreshPoetList(ArrayList(it))
             }
         })
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if(it){
                     poets_recyclerView.visibility = View.GONE
@@ -61,7 +61,7 @@ class PoetsFragment : Fragment() {
             }
         })
 
-        viewModel.progressBar.observe(this, Observer {
+        viewModel.progressBar.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it){
                     poets_recyclerView.visibility = View.GONE

@@ -2,14 +2,12 @@ package com.stturan.poemapplication.tool
 
 import android.content.Context
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.stturan.poemapplication.R
 
 
-//https://raw.githubusercontent.com/SerhatTurann/PoemAppWithRetrofit/main/poets_images/ahmet_arif.png
 
 fun ImageView.downloadImage(url : String?, placeholder: CircularProgressDrawable){
     val options = RequestOptions().placeholder(placeholder).error(R.mipmap.ic_launcher_round)
@@ -18,17 +16,9 @@ fun ImageView.downloadImage(url : String?, placeholder: CircularProgressDrawable
 
 fun CreatePlaceHolder(context : Context) : CircularProgressDrawable {
     return CircularProgressDrawable(context).apply {
-        strokeWidth = 8f //yükleniyor işaretinin kalınlığı float
-        centerRadius = 40f // yükleniyor işaretinin çapı
+        strokeWidth = 8f
+        centerRadius = 40f
         start()
     }
 
 }
-
-
-
-/*
-@BindingAdapter("android:downloadImage")
-fun downloadImage(view: ImageView, url:String){
-    view.downloadImage(url, CreatePlaceHolder(view.context))
-}*/

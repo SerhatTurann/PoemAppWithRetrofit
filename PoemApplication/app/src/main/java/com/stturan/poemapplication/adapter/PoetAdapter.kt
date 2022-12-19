@@ -5,14 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stturan.poemapplication.R
-import com.stturan.poemapplication.model.Poem
 import com.stturan.poemapplication.model.Poet
 import kotlinx.android.synthetic.main.recycler_row_poet.view.*
 
 class PoetAdapter(val poetList: ArrayList<Poet>): RecyclerView.Adapter<PoetAdapter.PoetViewHolder>() {
-
-    private lateinit var poet : Poet
-
     class PoetViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
     }
@@ -37,15 +33,4 @@ class PoetAdapter(val poetList: ArrayList<Poet>): RecyclerView.Adapter<PoetAdapt
         notifyDataSetChanged()
     }
 
-    fun getPoet(id:Int):Poet{
-        if (poetList.size!=0){
-            for (p in poetList){
-                if (p.poet_id == id.toString()){
-                    poet = p
-                }
-            }
-        }
-
-        return poet
-    }
 }

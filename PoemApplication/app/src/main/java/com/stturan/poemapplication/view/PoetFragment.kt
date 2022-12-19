@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stturan.poemapplication.R
 import com.stturan.poemapplication.adapter.PoetsPoemAdapter
-import com.stturan.poemapplication.model.Poet
 import com.stturan.poemapplication.viewmodel.PoetViewModel
 import kotlinx.android.synthetic.main.fragment_poet.*
 
@@ -18,7 +17,6 @@ class PoetFragment : Fragment() {
 
     private lateinit var viewModel: PoetViewModel
     private val adapter = PoetsPoemAdapter(arrayListOf())
-    //private  var _poet :Poet? = null
     var poet_id : String = "-1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +28,6 @@ class PoetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_poet, container, false)
     }
 
@@ -38,10 +35,7 @@ class PoetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            //_poet = Poet(PoetFragmentArgs.fromBundle(it).poetName,PoetFragmentArgs.fromBundle(it).poetId,"")
             poet_id = PoetFragmentArgs.fromBundle(it).poetId
-            poet_title.text = (PoetFragmentArgs.fromBundle(it).poetName)
-
         }
 
         viewModel = ViewModelProviders.of(this).get(PoetViewModel::class.java)

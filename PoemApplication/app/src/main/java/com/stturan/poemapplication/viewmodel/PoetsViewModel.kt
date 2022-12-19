@@ -1,48 +1,25 @@
 package com.stturan.poemapplication.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.stturan.poemapplication.model.Poet
-import com.stturan.poemapplication.service.PoetAPIService
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import com.stturan.poemapplication.service.PoemDatabase
+import kotlinx.coroutines.launch
 
-class PoetsViewModel: ViewModel() {
-    val poets = MutableLiveData<ArrayList<Poet>>()
+class PoetsViewModel(application: Application) : BaseViewModel(application) {
+    val poets = MutableLiveData<List<Poet>>()
     val errorMessage = MutableLiveData<Boolean>()
     val progressBar = MutableLiveData<Boolean>()
 
-    private val poetAPIService = PoetAPIService()
-    private val disposable = CompositeDisposable()
-
-
     fun refreshData(){
-        getDataFromAPI()
+        getData()
     }
 
-    private fun getDataFromAPI() {
+    fun getData(){
         progressBar.value = true
-
-        disposable.add(
-            poetAPIService.getData()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ArrayList<Poet>>() {
-                    override fun onSuccess(t: ArrayList<Poet>) {
-                        poets.value= t
-                        progressBar.value = false
-                    }
-
-                    override fun onError(e: Throwable) {
-                        errorMessage.value = true
-                        progressBar.value = false
-                        e.printStackTrace()
-                    }
-
-                })
-        )
+        launch {
+            poets.value = PoemDatabase(getApplication()).poetDao().getAllPoet()
+        }
     }
 
 }

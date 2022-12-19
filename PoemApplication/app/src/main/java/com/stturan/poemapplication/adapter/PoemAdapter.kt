@@ -26,8 +26,6 @@ class PoemAdapter(val poemList: ArrayList<PoemFinal>):RecyclerView.Adapter<PoemA
 
     override fun onBindViewHolder(holder: PoemViewHolder, position: Int) {
         holder.itemView.recycler_row_poem_title.text = poemList[position].poem_title
-        //holder.itemView.recycler_row_poem_poet_name.text = poemList[position].poet_id.toString()
-        //val _poet = getPoet(poemList[position].poet_id!!.toInt())
         holder.itemView.recycler_row_poem_poet_name.text = poemList[position].poet.poet_name
         holder.itemView.recycler_row_poem_imageview.downloadImage(poemList[position].poet.img_url,
             CreatePlaceHolder(holder.itemView.context)
