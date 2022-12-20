@@ -6,21 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.stturan.poemapplication.R
-import com.stturan.poemapplication.tool.CreatePlaceHolder
-import com.stturan.poemapplication.tool.downloadImage
+import com.stturan.poemapplication.adapter.PoemClickListener
+import com.stturan.poemapplication.databinding.FragmentPoemBinding
 import com.stturan.poemapplication.viewmodel.PoemViewModel
 import kotlinx.android.synthetic.main.fragment_poem.*
 
-class PoemFragment : Fragment() {
+class PoemFragment : Fragment(),PoemClickListener {
 
     private lateinit var viewModel: PoemViewModel
     private var poem_id: Int =-1
-    private var _poet_id : String = "-1"
-    private var _poet_name : String = "null"
+
+    private lateinit var binding: FragmentPoemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,8 @@ class PoemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_poem, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_poem, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,30 +45,24 @@ class PoemFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(PoemViewModel::class.java)
         viewModel.refreshData(poem_id.toString())
 
+        binding.mcontext = this
+        binding.listener = this
+
         observeLiveData()
 
-        poetBox.setOnClickListener {
-            val action = PoemFragmentDirections.actionPoemFragmentToPoetFragment2(_poet_id,_poet_name)
-            Navigation.findNavController(it).navigate(action)
-        }
     }
 
     fun observeLiveData(){
         viewModel.poem.observe(viewLifecycleOwner, Observer {
             it?.let {
-                poem_title.text = it.poem_title
-                poem_text.text = it.poem_text
-                poet_name.text = it.poet.poet_name
-
-                poem_imageView.downloadImage(it.poet.img_url, CreatePlaceHolder(this.requireContext()))
-
-                _poet_id = it.poet.poet_id
-                _poet_name = it.poet.poet_name
+                binding.poem = it
             }
+
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
+
                 if(it){
                     poem_progressBar.visibility = View.GONE
                     poem_errorText.visibility = View.VISIBLE
@@ -78,6 +74,7 @@ class PoemFragment : Fragment() {
 
         viewModel.progressBar.observe(viewLifecycleOwner, Observer {
             it?.let {
+
                 if (it){
                     poem_errorText.visibility = View.GONE
                     poem_progressBar.visibility = View.VISIBLE
@@ -87,5 +84,14 @@ class PoemFragment : Fragment() {
             }
         })
     }
+
+    override fun PoemClicked(view: View) {
+    }
+
+    override fun PoetClicked(view: View) {
+        val action = PoemFragmentDirections.actionPoemFragmentToPoetFragment2(binding.frgPoemPoetId.text.toString())
+        Navigation.findNavController(view).navigate(action)
+    }
+
 
 }

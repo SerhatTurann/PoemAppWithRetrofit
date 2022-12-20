@@ -30,7 +30,7 @@ class PostViewModel(application: Application) : BaseViewModel(application) {
 
     private val customSharedPreferences = CustomSharedPreferences(getApplication())
     val updateTimeCoefficientNanoseconds = 60 * 1000 * 1000 * 1000L
-    val updateTimeMinute = 5
+    val updateTimeMinute = 0.1
     private var updateTime = updateTimeMinute*updateTimeCoefficientNanoseconds
 
     fun refreshData(){

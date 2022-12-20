@@ -1,93 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="poem"
+            type="com.stturan.poemapplication.model.PoemFinal" />
+        <variable
+            name="mcontext"
+            type="com.stturan.poemapplication.view.PoemFragment" />
+        <variable
+            name="listener"
+            type="com.stturan.poemapplication.adapter.PoemClickListener" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/poem_errorText"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Hata oluştu!"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
-
-        <ProgressBar
-            android:id="@+id/poem_progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/poem_title"
+                android:id="@+id/poem_errorText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Şiir Başlığı"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:text="Hata oluştu!"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
-            <TextView
-                android:id="@+id/poem_text"
-                android:layout_width="match_parent"
+            <ProgressBar
+                android:id="@+id/poem_progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:minLines="15"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                android:text="Şiir metni"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
             <LinearLayout
-                android:id="@+id/poetBox"
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="150dp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/poem_imageView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                    app:strokeColor="#9FA8DA"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    app:strokeWidth="3dp"
-                    android:layout_marginLeft="20dp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/poet_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:text="Yazar ismi"
+                    android:id="@+id/poem_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:text="@{poem.poem_title}"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/poem_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:minLines="15"
+
+                    android:text="@{poem.poem_text}"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
+
+                <LinearLayout
+                    android:id="@+id/poetBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="150dp"
+                    android:onClick="@{listener::PoetClicked}">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/poemImageview"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+
+                        app:setBackgroundImage="@{poem.poet.img_url}"
+                        app:context="@{mcontext.context}"
+                        app:strokeColor="#9FA8DA"
+                        app:strokeWidth="3dp" />
+
+                    <TextView
+                        android:id="@+id/poet_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:text="@{poem.poet.poet_name}"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/frgPoemPoetId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{poem.poet.poet_id}"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
-
-
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

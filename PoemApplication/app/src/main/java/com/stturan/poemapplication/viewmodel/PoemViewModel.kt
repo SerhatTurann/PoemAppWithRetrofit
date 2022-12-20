@@ -8,9 +8,9 @@ import com.stturan.poemapplication.service.PoemDatabase
 import kotlinx.coroutines.launch
 
 class PoemViewModel(application: Application) : BaseViewModel(application) {
-    val poem = MutableLiveData<PoemFinal>()
-    val errorMessage = MutableLiveData<Boolean>()
-    val progressBar = MutableLiveData<Boolean>()
+    var poem = MutableLiveData<PoemFinal>()
+    var errorMessage = MutableLiveData<Boolean>()
+    var progressBar = MutableLiveData<Boolean>()
 
     fun getData(poem_id: String){
         progressBar.value = true
@@ -22,6 +22,7 @@ class PoemViewModel(application: Application) : BaseViewModel(application) {
             Toast.makeText(getApplication(),"Roomdan aldık.", Toast.LENGTH_LONG).show()
         }
     }
+
 
     private fun showItems(item : PoemFinal){
         poem.value = item

@@ -1,51 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/recycler_row_poem_imageview"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-        app:strokeColor="#9FA8DA"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        app:strokeWidth="3dp" />
+    <data>
+
+        <variable
+            name="poem"
+            type="com.stturan.poemapplication.model.PoemFinal" />
+        <variable
+            name="listener"
+            type="com.stturan.poemapplication.adapter.PoemClickListener" />
+    </data>
 
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:onClick="@{listener::PoetClicked}">
 
-        <TextView
-            android:id="@+id/recycler_row_poem_title"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/recycler_row_poem_imageview"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Siir baslığı"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:layout_margin="5dp"
+            android:setBackgroundImage="@{poem.poet.img_url}"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeColor="#9FA8DA"
+            app:strokeWidth="3dp" />
 
-        <TextView
-            android:id="@+id/recycler_row_poem_poet_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Yazar ismi"
-            android:textSize="20sp"
-            android:textStyle="italic" />
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:onClick="@{listener::PoemClicked}">
+
+            <TextView
+                android:id="@+id/poem_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(poem.id)}"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/poet_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(poem.poet.poet_id)}"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/recycler_row_poem_title"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@{poem.poem_title}"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/recycler_row_poet_name"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@{poem.poet.poet_name}"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-
-
-</LinearLayout>
+</layout>

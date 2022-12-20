@@ -3,24 +3,26 @@ package com.stturan.poemapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.stturan.poemapplication.R
+import com.stturan.poemapplication.databinding.RecyclerRowPoetBinding
 import com.stturan.poemapplication.model.Poet
-import kotlinx.android.synthetic.main.recycler_row_poet.view.*
 
-class PoetAdapter(val poetList: ArrayList<Poet>): RecyclerView.Adapter<PoetAdapter.PoetViewHolder>() {
-    class PoetViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+class PoetAdapter(val poetList: ArrayList<Poet>): RecyclerView.Adapter<PoetAdapter.PoetViewHolder>(),PoemClickListener {
+    class PoetViewHolder(var view: RecyclerRowPoetBinding): RecyclerView.ViewHolder(view.root){
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PoetViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.recycler_row_poet,parent,false)
+        val view = DataBindingUtil.inflate<RecyclerRowPoetBinding>(inflater,R.layout.recycler_row_poet,parent,false)
         return PoetViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PoetViewHolder, position: Int) {
-        holder.itemView.recycler_row_poet_poet_name.text = poetList[position].poet_name
+        holder.view.poet = poetList[position]
+        holder.view.listener = this
     }
 
     override fun getItemCount(): Int {
@@ -31,6 +33,12 @@ class PoetAdapter(val poetList: ArrayList<Poet>): RecyclerView.Adapter<PoetAdapt
         poetList.clear()
         poetList.addAll(newPoetList)
         notifyDataSetChanged()
+    }
+
+    override fun PoemClicked(view: View) {
+    }
+
+    override fun PoetClicked(view: View) {
     }
 
 }

@@ -3,42 +3,30 @@ package com.stturan.poemapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.stturan.poemapplication.R
+import com.stturan.poemapplication.databinding.RecyclerRowPoemBinding
 import com.stturan.poemapplication.model.PoemFinal
-import com.stturan.poemapplication.tool.CreatePlaceHolder
-import com.stturan.poemapplication.tool.downloadImage
 import com.stturan.poemapplication.view.PostFragmentDirections
 import kotlinx.android.synthetic.main.recycler_row_poem.view.*
 
-class PoemAdapter(val poemList: ArrayList<PoemFinal>):RecyclerView.Adapter<PoemAdapter.PoemViewHolder>() {
-    class PoemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+class PoemAdapter(val poemList: ArrayList<PoemFinal>):RecyclerView.Adapter<PoemAdapter.PoemViewHolder>(),PoemClickListener {
+    class PoemViewHolder(var view: RecyclerRowPoemBinding):RecyclerView.ViewHolder(view.root){
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PoemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.recycler_row_poem,parent,false)
-
+        val view = DataBindingUtil.inflate<RecyclerRowPoemBinding>(inflater,R.layout.recycler_row_poem,parent,false)
         return PoemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PoemViewHolder, position: Int) {
-        holder.itemView.recycler_row_poem_title.text = poemList[position].poem_title
-        holder.itemView.recycler_row_poem_poet_name.text = poemList[position].poet.poet_name
-        holder.itemView.recycler_row_poem_imageview.downloadImage(poemList[position].poet.img_url,
-            CreatePlaceHolder(holder.itemView.context)
-        )
+        holder.view.poem = poemList[position]
+        holder.view.listener = this
 
-        holder.itemView.recycler_row_poem_poet_name.setOnClickListener {
-            val action = PostFragmentDirections.actionPostFragmentToPoetFragment2(poemList[position].poet.poet_id)
-            Navigation.findNavController(it).navigate(action)
-        }
-        holder.itemView.setOnClickListener {
-            val action = PostFragmentDirections.actionPostFragmentToPoemFragment2(poemList[position].id)
-            Navigation.findNavController(it).navigate(action)
-        }
     }
 
     override fun getItemCount(): Int {
@@ -51,4 +39,12 @@ class PoemAdapter(val poemList: ArrayList<PoemFinal>):RecyclerView.Adapter<PoemA
         notifyDataSetChanged()
     }
 
+    override fun PoetClicked(view: View) {
+        val action = PostFragmentDirections.actionPostFragmentToPoetFragment2(view.poet_id.text.toString())
+        Navigation.findNavController(view).navigate(action)
+    }
+    override fun PoemClicked(view: View) {
+        val action = PostFragmentDirections.actionPostFragmentToPoemFragment2(view.poem_id.text.toString().toInt())
+        Navigation.findNavController(view).navigate(action)
+    }
 }
